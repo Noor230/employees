@@ -1,0 +1,29 @@
+<h2>Add New Employee</h2>
+<form id="add-employee-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+    <label for="position">Position:</label>
+    <input type="text" id="position" name="position" required><br>
+    <button type="submit">Add Employee</button>
+</form>
+
+<script>
+    document.getElementById('add-employee-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        let formData = new FormData(this);
+        fetch('add_employee.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // إعادة تحميل الصفحة بعد إضافة الموظف لتحديث القائمة
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
